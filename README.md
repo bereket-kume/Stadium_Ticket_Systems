@@ -1,8 +1,8 @@
-**Stadium Ticket System
+**Stadium Ticket System**
 
 This repository contains the code and database structure for a Stadium Ticket System. The system manages ticket sales, reservations, and payments for football matches in various stadiums. It also includes user management for administrators, event managers, and fans.
 
-#Features
+**Features**
 User registration and login for fans.
 Stadium and match management for event managers.
 Ticket purchasing and reservation for fans.
@@ -26,7 +26,7 @@ payment: Stores information about payment records, including payment IDs, associ
 Stored Procedure
 The project includes a stored procedure called PurchaseTicket that performs the ticket purchase transaction. It checks the availability of tickets, updates the ticket status, deducts the ticket price from the fan's account balance, and records the payment details.
 
-#User Roles
+**User Roles**
 The system includes the following user roles:
 
 Main Admin: The main administrator has full access to all database tables.
@@ -43,13 +43,13 @@ The Stadium Ticket System can be used as a backend system for managing ticket sa
 
 Developers can integrate the system with a user interface or build APIs to interact with the database and implement the desired functionality for fans, administrators, and event managers.
 
-#Contributors
+**Contributors**
 The Stadium Ticket System project is developed and maintained by [Your Name]. Contributions and improvements to the project are welcome.
 
 Please feel free to report any issues or suggest enhancements through the repository's issue tracker.
 
-#License
+**License**
 This project is licensed under the MIT License. You are free to modify, distribute, and use the code as per the terms of the license.
 
-#Conclusion
+**Conclusion**
 The Stadium Ticket System provides a solid foundation for managing ticket sales, reservations, and payments for football matches. It offers a well-structured database design and a stored procedure for handling the ticket purchase transaction. Developers can build upon this system to create a complete ticketing solution for stadiums and fans.
