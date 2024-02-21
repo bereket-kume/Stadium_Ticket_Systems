@@ -1,116 +1,55 @@
-# Student Enrollment System
+Stadium Ticket System
 
-#Project Description: Student Enrollment System
+This repository contains the code and database structure for a Stadium Ticket System. The system manages ticket sales, reservations, and payments for football matches in various stadiums. It also includes user management for administrators, event managers, and fans.
 
-The Student Enrollment System is a database-driven application designed to manage student enrollments in 
-various courses within an educational institution. This system tracks student details, course information,
- grades, and financial transactions related to enrollments.
+Features
+User registration and login for fans.
+Stadium and match management for event managers.
+Ticket purchasing and reservation for fans.
+Payment processing and transaction history.
+Access control for administrators and event managers.
+Technologies Used
+Programming Language: SQL
+Database Management System: MySQL
+Database Design: Relational Database
+User Interface: N/A (This project focuses on the backend logic and database structure)
+Database Structure
+The database structure consists of the following tables:
 
-Key Components:
+Fans: Stores information about registered fans, including their personal details and account balance.
+Stadiums: Stores information about stadiums, including their names, addresses, and capacities.
+match_event: Stores information about football matches, including match details, dates, times, and associated stadiums.
+seat: Stores information about seats in the stadiums, including seat numbers, types, and the stadiums they belong to.
+ticket: Stores information about tickets, including ticket IDs, associated matches, seats, prices, and availability status.
+reservation: Stores information about fan reservations, including reservation IDs, associated fans, tickets, reservation dates, times, and priorities.
+payment: Stores information about payment records, including payment IDs, associated reservations, payment amounts, and dates.
+Stored Procedure
+The project includes a stored procedure called PurchaseTicket that performs the ticket purchase transaction. It checks the availability of tickets, updates the ticket status, deducts the ticket price from the fan's account balance, and records the payment details.
 
-1. Database Structure:
-   - Students Table: Stores information about students.
-   - Courses Table: Contains details of available courses.
-   - Enrollments Table: Tracks student enrollments in specific courses.
-   - Grades Table: Records grades associated with enrollments.
-   - Users Table: Manages user accounts for students, professors, and university staff.
-   - UserRoles Table: Specifies roles (e.g., Student, Professor, University) for users.
-   - Transactions Table: Records financial transactions with a unique transaction ID.
+User Roles
+The system includes the following user roles:
 
-2. TransactionDetails Table:
-   - Records specific details for each transaction, including the user involved and the transaction amount.
-   - Foreign keys link entries to Users and Transactions tables.
+Main Admin: The main administrator has full access to all database tables.
+Event Manager: The event manager has select, insert, update, and delete access to the stadiums, match_event, seat, ticket, reservation tables, and select and insert access to the payment table.
+Setting Up the Database
+To set up the Stadium Ticket System database, follow these steps:
 
-Project Workflow:
+Create a MySQL database and name it "Stadium_Ticket_Systems".
+Execute the SQL script provided in the repository to create the necessary tables and insert sample data.
+Create the users "MainAdmin" and "EventManager" with their respective privileges as mentioned in the script.
+Update the database connection configuration in your application code to connect to the created database.
+Usage
+The Stadium Ticket System can be used as a backend system for managing ticket sales and reservations for football matches in stadiums. It provides the necessary database structure and logic to handle user registrations, ticket purchases, reservations, and payment processing.
 
-1. Enrollment Process:
-   - A stored procedure (EnrollStudentProc) facilitates the enrollment of a student in a course.
-   - Checks are made for course availability (based on available credits) before proceeding.
-   - Upon successful enrollment:
-     - The student is added to the Enrollments table.
-     - Credits are updated in the Courses table.
-     - A financial transaction is recorded in the TransactionDetails table.
+Developers can integrate the system with a user interface or build APIs to interact with the database and implement the desired functionality for fans, administrators, and event managers.
 
-2. Financial Transactions:
-   - The system handles financial transactions associated with enrollments.
-   - Transactions involve debiting the student (tuition fees) and crediting the professor and the university.
-   - Specific amounts are recorded in the TransactionDetails table.
+Contributors
+The Stadium Ticket System project is developed and maintained by [Your Name]. Contributions and improvements to the project are welcome.
 
-3. User Roles:
-   - The UserRoles table determines the role of each user (Student, Professor, University).
+Please feel free to report any issues or suggest enhancements through the repository's issue tracker.
 
-4. Queries:
-   - The system includes queries to retrieve enrollment details for a specific student and courses with available credits.
+License
+This project is licensed under the MIT License. You are free to modify, distribute, and use the code as per the terms of the license.
 
-How Transactions Work:
-   - Transactions are initiated by the EnrollStudentProc stored procedure.
-   - It uses a transaction block to ensure atomicity, consistency, isolation, and durability (ACID properties).
-   - Checks for course availability, enrolls the student, updates credits, and records financial transactions within a single transaction.
-   - If any step fails, the entire transaction is rolled back to maintain data integrity.
-
-Usage Example:
-   - Execute the stored procedure with parameters (@student_id and @course_id) to enroll a student in a specific course.
-
-Note: Ensure correct transaction_id values when recording financial transactions in the TransactionDetails table.
-
-This project aims to provide a robust and comprehensive system for managing student enrollments, grades, and associated financial transactions within an educational institution.
-
-
-
-
-
-Entity-Relationship Diagram (ERD) for Student Enrollment System:
-
-1. Entities:
-
-- Students:
-     - Attributes: student_id (PK), first_name, middle_name, last_name, email, phone, address_student.
-
-   - Courses:
-     - Attributes: course_id (PK), course_name, department, credits.
-
-   - Enrollments:
-     - Attributes: enrollment_id (PK), student_id (FK), course_id (FK), enrollment_date.
-  
-   - Grades:
-     - Attributes: grade_id (PK), enrollment_id (FK), grade.
-
-   - Users:
-     - Attributes: user_id (PK), username, phone.
-
-   - UserRoles:
-     - Attributes: user_id (FK), role.
-  
-   - Transactions:
-     - Attributes: transaction_id (PK), description, transaction_date.
-  
-   - TransactionDetails:
-     - Attributes: transaction_detail_id (PK), transaction_id (FK), user_id (FK), amount.
-
-2. Relationships:
-
-   - One-to-Many Relationship:
-     - Students (1) to Enrollments (Many) [student_id in Students -> student_id in Enrollments] - Enrolls In
-     - Courses (1) to Enrollments (Many) [course_id in Courses -> course_id in Enrollments] - Offered In
-     - Enrollments (1) to Grades (Many) [enrollment_id in Enrollments -> enrollment_id in Grades] - Assigned Grades
-     - Users (1) to UserRoles (Many) [user_id in Users -> user_id in UserRoles] - Has Roles
-     - Transactions (1) to TransactionDetails (Many) [transaction_id in Transactions -> transaction_id in TransactionDetails] - Comprises Transactions
-
-   - Foreign Key Relationships:
-     - Enrollments.student_id (FK) to Students.student_id (PK) - Enrolled Student
-     - Enrollments.course_id (FK) to Courses.course_id (PK) - Enrolled In Course
-     - Grades.enrollment_id (FK) to Enrollments.enrollment_id (PK) - Grade For Enrollment
-     - UserRoles.user_id (FK) to Users.user_id (PK) - User Has Role
-     - TransactionDetails.transaction_id (FK) to Transactions.transaction_id (PK) - Part of Transaction
-     - TransactionDetails.user_id (FK) to Users.user_id (PK) - Transaction User
-
-3. Attributes:
-
-   - Attributes are listed with their corresponding entities.
-   - PK indicates primary key attributes.
-   - FK indicates foreign key attributes.
-
-Note:
-- Ensure the correct transaction_id in the TransactionDetails table in the code snippet.
-- Adjust the ERD based on specific requirements and constraints.
-*/
+Conclusion
+The Stadium Ticket System provides a solid foundation for managing ticket sales, reservations, and payments for football matches. It offers a well-structured database design and a stored procedure for handling the ticket purchase transaction. Developers can build upon this system to create a complete ticketing solution for stadiums and fans.
