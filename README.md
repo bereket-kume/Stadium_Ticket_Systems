@@ -1,4 +1,4 @@
-#Stadium Ticket System
+**Stadium Ticket System
 
 This repository contains the code and database structure for a Stadium Ticket System. The system manages ticket sales, reservations, and payments for football matches in various stadiums. It also includes user management for administrators, event managers, and fans.
 
